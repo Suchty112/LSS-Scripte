@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         MissionSpeed
-// @version      2.1.0
+// @version      2.1.1
 // @author       Allure149
-// @include      /^https?:\/\/[www.]*(?:leitstellenspiel\.de|missionchief\.co\.uk|missionchief\.com|meldkamerspel\.com|centro-de-mando\.es|missionchief-australia\.com|larmcentralen-spelet\.se|operatorratunkowy\.pl|operatore112\.it|operateur112\.fr|dispetcher112\.ru|alarmcentral-spil\.dk|nodsentralspillet\.com|operacni-stredisko\.cz|112-merkez\.com|jogo-operador112\.com|operador193\.com|centro-de-mando\.mx|dyspetcher101-game\.com|missionchief-japan\.com|missionchief-japan\.com|jocdispecerat112\.com)\/.*$/
+// @include      /^https?:\/\/[www.]*(?:leitstellenspiel\.de|missionchief\.co\.uk|missionchief\.com|meldkamerspel\.com|centro-de-mando\.es|missionchief-australia\.com|larmcentralen-spelet\.se|operatorratunkowy\.pl|operatore112\.it|operateur112\.fr|dispetcher112\.ru|alarmcentral-spil\.dk|nodsentralspillet\.com|operacni-stredisko\.cz|112-merkez\.com|jogo-operador112\.com|operador193\.com|centro-de-mando\.mx|dyspetcher101-game\.com|missionchief-korea\.com|missionchief-japan\.com|jocdispecerat112\.com)\/.*$/
 // @updateURL    https://github.com/types140/LSS-Scripte/raw/master/missionspeed.user.js
 // @grant        none
 // ==/UserScript==
@@ -16,9 +16,11 @@
         $('#search_input_field_missions').before(`<div id="missionSpeed" class="btn-group">
                                                       <a id="mspa" class="btn btn-xs btn-success" title="Pause"><div class="glyphicon glyphicon-pause"></div></a>
                                                       <a id="msfb" class="btn btn-xs btn-success" title="10 Minuten"><div class="glyphicon glyphicon-fast-backward"></div></a>
+                                                      <a id="mssb" class="btn btn-xs btn-success" title="7 Minuten"><div class="glyphicon glyphicon-step-backward"></div></a>
                                                       <a id="msb" class="btn btn-xs btn-success" title="5 Minuten"><div class="glyphicon glyphicon-backward"></div></a>
                                                       <a id="mspl" class="btn btn-xs btn-success" title="3 Minuten"><div class="glyphicon glyphicon-play"></div></a>
-                                                      <a id="msf" class="btn btn-xs btn-success" title="1 Minute"><div class="glyphicon glyphicon-forward"></div></a>
+                                                      <a id="msf" class="btn btn-xs btn-success" title="2 Minuten"><div class="glyphicon glyphicon-forward"></div></a>
+                                                      <a id="mssf" class="btn btn-xs btn-success" title="1 Minute"><div class="glyphicon glyphicon-step-forward"></div></a>
                                                       <a id="msff" class="btn btn-xs btn-success" title="30 Sekunden"><div class="glyphicon glyphicon-fast-forward"></div></a>
                                                       <a id="msvf" class="btn btn-xs btn-success" title="20 Sekunden"><div class="glyphicon glyphicon-plane"></div></a>
                                                   </div>`);
@@ -37,12 +39,16 @@
                 break;
             case 6: $('#mspa').toggleClass("btn-success btn-warning");
                 break;
+            case 7: $('#mspa').toggleClass("btn-success btn-warning");
+                break;
+            case 8: $('#mspa').toggleClass("btn-success btn-warning");
+                break;
         }
     }
 
     if($('#mission_speed_pause').length != 0) $('#mission_speed_pause').remove();
 
-    $('#mspa, #msfb, #msb, #mspl, #msf, #msff, #msvf').on('click', function(){
+    $('#mspa, #msfb, #mssb, #msb, #mspl, #msf, #mssf, #msff, #msvf').on('click', function(){
         var clickedId = $(this).attr('id');
 
         switch(clickedId){
@@ -52,11 +58,17 @@
             case "msfb": $.get('/missionSpeed?speed=5');
                          mission_speed = 5;
                 break;
+            case "mssb": $.get('/missionSpeed?speed=8');
+                         mission_speed = 8;
+                break;
             case "msb": $.get('/missionSpeed?speed=4');
                          mission_speed = 4;
                 break;
             case "mspl": $.get('/missionSpeed?speed=0');
                          mission_speed = 0;
+                break;
+            case "mssf": $.get('/missionSpeed?speed=7');
+                         mission_speed = 7;
                 break;
             case "msf": $.get('/missionSpeed?speed=1');
                          mission_speed = 1;
@@ -73,7 +85,7 @@
                 break;
         }
 
-        $('#mspa, #msfb, #msb, #mspl, #msf, #msff, #msvf').removeClass().addClass('btn btn-xs btn-success');
+        $('#mspa, #msfb, #mssb, #msb, #mspl, #msf, #mssf, #msff, #msvf').removeClass().addClass('btn btn-xs btn-success');
 
         $('#' + clickedId).toggleClass('btn-success btn-warning');
     });
