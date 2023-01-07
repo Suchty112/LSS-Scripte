@@ -67,10 +67,10 @@
             case "mspl": $.get('/missionSpeed?speed=0');
                          mission_speed = 0;
                 break;
-            case "mssf": $.get('/missionSpeed?speed=7');
+            case "msf": $.get('/missionSpeed?speed=7');
                          mission_speed = 7;
                 break;
-            case "msf": $.get('/missionSpeed?speed=1');
+            case "mssf": $.get('/missionSpeed?speed=1');
                          mission_speed = 1;
                 break;
             case "msff": $.get('/missionSpeed?speed=2');
